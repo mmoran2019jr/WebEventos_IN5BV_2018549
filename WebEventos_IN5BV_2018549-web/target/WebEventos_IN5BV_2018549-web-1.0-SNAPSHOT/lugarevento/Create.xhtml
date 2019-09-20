@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LugareventoCreateDlg" widgetVar="LugareventoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateLugareventoTitle}">
+            <h:form id="LugareventoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{lugareventoController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateLugareventoLabel_idlugarevento}" for="idlugarevento" />
+                        <p:inputText id="idlugarevento" value="#{lugareventoController.selected.idlugarevento}" title="#{bundle.CreateLugareventoTitle_idlugarevento}" required="true" requiredMessage="#{bundle.CreateLugareventoRequiredMessage_idlugarevento}"/>
+                        <p:outputLabel value="#{bundle.CreateLugareventoLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{lugareventoController.selected.descripcion}" title="#{bundle.CreateLugareventoTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateLugareventoRequiredMessage_descripcion}"/>
+                        <p:outputLabel value="#{bundle.CreateLugareventoLabel_areaidArea}" for="areaidArea" />
+                        <p:selectOneMenu id="areaidArea" value="#{lugareventoController.selected.areaidArea}" required="true" requiredMessage="#{bundle.EditLugareventoRequiredMessage_areaidArea}">
+                            <f:selectItems value="#{areaController.itemsAvailableSelectOne}"
+                                           var="areaidAreaItem"
+                                           itemValue="#{areaidAreaItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{lugareventoController.create}" value="#{bundle.Save}" update="display,:LugareventoListForm:datalist,:growl" oncomplete="handleSubmit(args,'LugareventoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="LugareventoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

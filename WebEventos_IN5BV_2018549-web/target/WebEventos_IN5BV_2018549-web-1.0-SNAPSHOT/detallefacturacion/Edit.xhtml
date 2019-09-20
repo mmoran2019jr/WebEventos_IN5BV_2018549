@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DetallefacturacionEditDlg" widgetVar="DetallefacturacionEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditDetallefacturacionTitle}">
+            <h:form id="DetallefacturacionEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{detallefacturacionController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditDetallefacturacionLabel_iddetallefacturacion}" for="iddetallefacturacion" />
+                        <p:inputText id="iddetallefacturacion" value="#{detallefacturacionController.selected.iddetallefacturacion}" title="#{bundle.EditDetallefacturacionTitle_iddetallefacturacion}" required="true" requiredMessage="#{bundle.EditDetallefacturacionRequiredMessage_iddetallefacturacion}"/>
+                        <p:outputLabel value="#{bundle.EditDetallefacturacionLabel_cantidad}" for="cantidad" />
+                        <p:inputText id="cantidad" value="#{detallefacturacionController.selected.cantidad}" title="#{bundle.EditDetallefacturacionTitle_cantidad}" required="true" requiredMessage="#{bundle.EditDetallefacturacionRequiredMessage_cantidad}"/>
+                        <p:outputLabel value="#{bundle.EditDetallefacturacionLabel_precioventa}" for="precioventa" />
+                        <p:inputText id="precioventa" value="#{detallefacturacionController.selected.precioventa}" title="#{bundle.EditDetallefacturacionTitle_precioventa}" required="true" requiredMessage="#{bundle.EditDetallefacturacionRequiredMessage_precioventa}"/>
+                        <p:outputLabel value="#{bundle.EditDetallefacturacionLabel_facturacionIdfacturacion}" for="facturacionIdfacturacion" />
+                        <p:selectOneMenu id="facturacionIdfacturacion" value="#{detallefacturacionController.selected.facturacionIdfacturacion}" required="true" requiredMessage="#{bundle.EditDetallefacturacionRequiredMessage_facturacionIdfacturacion}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{facturacionController.itemsAvailableSelectOne}"
+                                           var="facturacionIdfacturacionItem"
+                                           itemValue="#{facturacionIdfacturacionItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditDetallefacturacionLabel_productosIdproductos}" for="productosIdproductos" />
+                        <p:selectOneMenu id="productosIdproductos" value="#{detallefacturacionController.selected.productosIdproductos}" required="true" requiredMessage="#{bundle.EditDetallefacturacionRequiredMessage_productosIdproductos}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{productosController.itemsAvailableSelectOne}"
+                                           var="productosIdproductosItem"
+                                           itemValue="#{productosIdproductosItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{detallefacturacionController.update}" value="#{bundle.Save}" update="display,:DetallefacturacionListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DetallefacturacionEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DetallefacturacionEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
